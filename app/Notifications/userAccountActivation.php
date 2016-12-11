@@ -2,25 +2,24 @@
 
 namespace App\Notifications;
 
-use Illuminate\Http\Request;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Carbon\Carbon;
 
-class newUserLogin extends Notification
+class userAccountActivation extends Notification
 {
     use Queueable;
+    public $token;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($token)
     {
-
+        $this->token = $token;
     }
 
     /**
@@ -42,11 +41,13 @@ class newUserLogin extends Notification
      */
     public function toMail($notifiable)
     {
+    //  $link = route('user.activate', $token);
+    //  $message = sprintf('Activate account %s', $link, $link);
 
         return (new MailMessage)
-                    ->subject('New Login Detected')
-                    ->line('You have logged into your account at: ' . Carbon::now())
-                    ->line('Thank you for using Sheria Village!');
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', 'https://laravel.com')
+                    ->line('Thank you for using our application!');
     }
 
     /**

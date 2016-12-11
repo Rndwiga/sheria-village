@@ -41,7 +41,8 @@
 
 </head>
 
-<body class="navbar-bottom navbar-top {{ !empty($data['login']) ? $data['login'] : '' }}">
+<body class="navbar-bottom navbar-top login-container">
+<!--<body class="navbar-bottom navbar-top {{ !empty($data['login']) ? $data['login'] : '' }}"> -->
 
 	<!-- Main navbar -->
 	<div class="navbar navbar-inverse bg-indigo navbar-fixed-top">
