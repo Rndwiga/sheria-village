@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Sheria\UserActivationLibrary;
+use App\Notifications\userAccountActivation;
+use Illuminate\Http\Request;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -34,9 +37,10 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserActivationLibrary $userActivationLibrary)
     {
         $this->middleware('guest');
+        $this->userActivationLibrary = $userActivationLibrary;
     }
 
     /**
@@ -73,5 +77,20 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
     }
+    /**
+     * overides register method in Illuminate\Foundation\Auth\RegistersUsers.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+  public function register(Request $request)
+    {
+        $validator = $this->validator($request->all());
+        $user = $this->create($request->all());
+        $this->userActivationLibrary->sendActivationMail($user);
+        return redirect('/login')->with('activationStatus', true);
+    }
+
 }

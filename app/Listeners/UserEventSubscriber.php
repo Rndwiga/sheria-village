@@ -5,38 +5,26 @@ namespace App\Listeners;
 use Illuminate\Auth\Events\Authenticated;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Auth;
 use App\Notifications\newUserLogin;
 use App\Notifications\userAccountActivation;
 use App\Sheria\UserActivationLibrary;
+use Illuminate\Support\Facades\Session;
 use App\User;
 
 class UserEventSubscriber
 {
   private $userActivationLibrary;
   protected $resendAfter = 24;
-  public function __construct(UserActivationLibrary $userActivationLibrary)
+  public function __construct()
   {
-      $this->userActivationLibrary = $userActivationLibrary;
   }
   /**
    * Handle user login events.
    */
   public function onUserLogin($event) {
-    $userData = json_decode($event->user->toJson());
-    $user = User::find($userData->id);
-    if (!$user->activated) {
-      /**
-       * Handle user login events.
-       * $this->sendActivationMail($event); write logic that asks the user to get actiation link resent
-       *$user = Auth::user();
-        * //  $user->notify(new newUserLogin());
-       */
-            auth()->logout();
-            return back()->with('activationWarning', true);
-        }
-        return redirect()->back();
-  }
+  //  $userData = json_decode($event->user->toJson());
+  //  $user = User::find($userData->id);
+}
 
   /**
    * Handle user Attempting events.
@@ -97,31 +85,5 @@ class UserEventSubscriber
           'Illuminate\Auth\Events\Attempting',
           'App\Listeners\UserEventSubscriber@onUserAttempting'
       );
-  }
-  private function sendActivationMail($event)
-  {
-    $userData = json_decode($event->user->toJson());
-      /*
-        [username] =>
-        [first_name] =>
-        [last_name] =>
-        [gender] =>
-        [email] =>
-        [updated_at] => 2016-12-11 07:54:15
-        [created_at] => 2016-12-11 07:54:15
-        [id] => 39
-      */
-      if ($event->user->activated || !$this->shouldSend($userData)) {
-          return;
-        }
-      $token = $this->userActivationLibrary->createActivation($userData);
-      $user = User::find($userData->id);
-      $user->notify(new userAccountActivation($token));
-
-  }
-  private function shouldSend($userData)
-  {
-      $activation = $this->userActivationLibrary->getActivation($userData);
-      return $activation === null || strtotime($activation->created_at) + 60 * 60 * $this->resendAfter < time();
   }
 }

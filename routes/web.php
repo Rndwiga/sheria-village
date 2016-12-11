@@ -15,6 +15,7 @@ Route::get('/password', function () {
 });
 */
 Auth::routes();
+Route::get('user/activation/{token}', 'Auth\LoginController@activateUser')->name('user.activate');
 
 Route::get('/', function () {
     $data = ['login' => 'login-container'];

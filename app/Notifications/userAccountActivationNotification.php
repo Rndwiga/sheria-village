@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class userAccountActivation extends Notification
+class userAccountActivationNotification extends Notification
 {
     use Queueable;
     public $token;
@@ -41,13 +41,15 @@ class userAccountActivation extends Notification
      */
     public function toMail($notifiable)
     {
-    //  $link = route('user.activate', $token);
+      $link = route('user.activate', $this->token);
     //  $message = sprintf('Activate account %s', $link, $link);
 
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', 'https://laravel.com')
-                    ->line('Thank you for using our application!');
+                    ->subject('Activate your Account')
+                    ->line('Welcome to Sheria Village.')
+                    //->action('Notification Action', 'https://laravel.com')
+                    ->action('Activation Link', $link)
+                    ->line('We hope you will have a good experience');
     }
 
     /**

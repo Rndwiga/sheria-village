@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+use App\Sheria\UserActivationLibrary;
+use App\Notifications\newUserLogin;
+
 class LoginController extends Controller
 {
     /*
@@ -33,8 +36,38 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserActivationLibrary $userActivationLibrary)
     {
         $this->middleware('guest', ['except' => 'logout']);
+        $this->userActivationLibrary = $userActivationLibrary;
     }
+    /**
+     * overides authenticated method in Illuminate\Foundation\Auth\AuthenticatesUsers.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function authenticated(Request $request, $user)
+    {
+        if (!$user->activated) {
+            $this->userActivationLibrary->sendActivationMail($user);
+            auth()->logout();
+            return back()->with('activationWarning', true);
+        }
+        $this->newLogin($request->ip(), $user);
+        return redirect()->intended($this->redirectPath());
+    }
+    public function activateUser($token)
+    {
+        if ($user = $this->userActivationLibrary->activateUser($token)) {
+            auth()->login($user);
+            return redirect($this->redirectPath());
+        }
+        abort(404);
+    }
+    private function newLogin($ip, $user)
+    {
+      $user->notify(new newUserLogin($ip));
+    }
+
 }

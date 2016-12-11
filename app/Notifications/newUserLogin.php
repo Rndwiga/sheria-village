@@ -12,15 +12,16 @@ use Carbon\Carbon;
 class newUserLogin extends Notification
 {
     use Queueable;
+    public $ip;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($ip)
     {
-
+      $this->ip = $ip;
     }
 
     /**
@@ -45,7 +46,7 @@ class newUserLogin extends Notification
 
         return (new MailMessage)
                     ->subject('New Login Detected')
-                    ->line('You have logged into your account at: ' . Carbon::now())
+                    ->line('You have logged into your account at: ' . Carbon::now() . ' from IP: ' . $this->ip)
                     ->line('Thank you for using Sheria Village!');
     }
 

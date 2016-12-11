@@ -177,7 +177,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        //sheria Village
+        App\Providers\sheriaServiceProvider::class,
     ],
 
     /*
