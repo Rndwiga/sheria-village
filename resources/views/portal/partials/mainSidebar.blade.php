@@ -8,7 +8,7 @@
 					<div class="sidebar-user-material">
 						<div class="category-content">
 							<div class="sidebar-user-material-content">
-								<a href="#"><img src="assets/images/placeholder.jpg" class="img-circle img-responsive" alt=""></a>
+								<a href="#"><img src="{{asset('assets/images/placeholder.jpg')}}" class="img-circle img-responsive" alt=""></a>
 								<h6>{{ Auth::user()->first_name . ' '. Auth::user()->last_name }}</h6>
 								<span class="text-size-small">Santa Ana, CA</span>
 							</div>
@@ -20,7 +20,7 @@
 
 						<div class="navigation-wrapper collapse" id="user-nav">
 							<ul class="navigation">
-								<li><a href="#"><i class="icon-user-plus"></i> <span>My profile</span></a></li>
+								<li><a href="{{route('portal.users.show', ['id' => Auth::user()->id])}}"><i class="icon-user-plus"></i> <span>My profile</span></a></li>
 								<li><a href="#"><i class="icon-coins"></i> <span>My balance</span></a></li>
 								<li><a href="#"><i class="icon-comment-discussion"></i> <span><span class="badge bg-teal-400 pull-right">58</span> Messages</span></a></li>
 								<li class="divider"></li>

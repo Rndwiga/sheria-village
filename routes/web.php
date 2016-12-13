@@ -22,3 +22,18 @@ Route::get('/', function () {
     return view('auth.login', compact('data'));
 });
 Route::resource('portal', 'HomeController');
+
+Route::group(['prefix' => 'portal'], function(){
+  Route::resource('users', 'AdminUsersController', [
+    'names'=> [
+      'index' => 'portal.users.index',
+      'create' => 'portal.users.create',
+      'store' => 'portal.users.store',
+      'update' => 'portal.users.update',
+      'destroy' => 'portal.users.destroy',
+      'show' => 'portal.users.show',
+      'edit' => 'portal.users.edit',
+    ]
+  ]);
+
+});

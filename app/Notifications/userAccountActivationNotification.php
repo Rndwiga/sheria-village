@@ -1,5 +1,8 @@
 <?php
-
+/*
+* This notification class sends emails to a user when they register.
+* Output: activation code
+*/
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;

@@ -1,5 +1,8 @@
 <?php
-
+/*
+* This notification class sends emails to a user whenever they login.
+* Output: time, ip
+*/
 namespace App\Notifications;
 
 use Illuminate\Http\Request;

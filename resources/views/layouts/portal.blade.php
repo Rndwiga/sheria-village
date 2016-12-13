@@ -10,18 +10,18 @@
 
 	<!-- Global stylesheets -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-	<link href="assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-	<link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-	<link href="assets/css/core.css" rel="stylesheet" type="text/css">
-	<link href="assets/css/components.css" rel="stylesheet" type="text/css">
-	<link href="assets/css/colors.css" rel="stylesheet" type="text/css">
+	<link href="{{asset('assets/css/icons/icomoon/styles.css')}}" rel="stylesheet" type="text/css">
+	<link href="{{asset('assets/css/bootstrap.css')}}" rel="stylesheet" type="text/css">
+	<link href="{{asset('assets/css/core.css')}}" rel="stylesheet" type="text/css">
+	<link href="{{asset('assets/css/components.css')}}" rel="stylesheet" type="text/css">
+	<link href="{{asset('assets/css/colors.css')}}" rel="stylesheet" type="text/css">
 	<!-- /global stylesheets -->
 
 	<!-- Core JS files -->
-	<script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
-	<script type="text/javascript" src="assets/js/core/libraries/jquery.min.js"></script>
-	<script type="text/javascript" src="assets/js/core/libraries/bootstrap.min.js"></script>
-	<script type="text/javascript" src="assets/js/plugins/loaders/blockui.min.js"></script>
+	<script type="text/javascript" src="{{asset('assets/js/plugins/loaders/pace.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('assets/js/core/libraries/jquery.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('assets/js/core/libraries/bootstrap.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('assets/js/plugins/loaders/blockui.min.js')}}"></script>
 	<!-- /core JS files -->
 
 	<!-- Theme JS files -->
@@ -33,10 +33,10 @@
 	<script type="text/javascript" src="assets/js/plugins/ui/moment/moment.min.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/pickers/daterangepicker.js"></script>
 
-	<script type="text/javascript" src="assets/js/core/app.js"></script>
-	<script type="text/javascript" src="assets/js/pages/dashboard.js"></script>
+	<script type="text/javascript" src="{{asset('assets/js/core/app.js')}}"></script>
+	<script type="text/javascript" src="{{asset('assets/js/pages/dashboard.js')}}"></script>
 
-	<script type="text/javascript" src="assets/js/plugins/ui/ripple.min.js"></script>
+	<script type="text/javascript" src="{{asset('assets/js/plugins/ui/ripple.min.js')}}"></script>
 	<!-- /theme JS files -->
 
 </head>
@@ -47,7 +47,7 @@
 	<!-- Main navbar -->
 	<div class="navbar navbar-inverse bg-indigo navbar-fixed-top">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="{{ url('/') }}"><img src="assets/images/logo_light.png" alt=""></a>
+			<a class="navbar-brand" href="{{ url('/portal') }}"><img src="{{asset('assets/images/logo_light.png')}}" alt=""></a>
 
 			<ul class="nav navbar-nav visible-xs-block">
 				<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
@@ -143,7 +143,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown language-switch">
 					<a class="dropdown-toggle" data-toggle="dropdown">
-						<img src="assets/images/flags/gb.png" class="position-left" alt="">
+						<img src="{{asset('assets/images/flags/gb.png')}}" class="position-left" alt="">
 						English
 						<span class="caret"></span>
 					</a>
@@ -251,13 +251,13 @@
 				@else
 				<li class="dropdown dropdown-user">
 					<a class="dropdown-toggle" data-toggle="dropdown">
-						<img src="assets/images/placeholder.jpg" alt="">
+						<img src="{{asset('assets/images/placeholder.jpg')}}" alt="">
 						<span>{{ Auth::user()->first_name }}</span>
 						<i class="caret"></i>
 					</a>
 
 					<ul class="dropdown-menu dropdown-menu-right">
-						<li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
+						<li><a href="{{route('portal.users.show', ['id' => Auth::user()->id])}}"><i class="icon-user-plus"></i> My profile</a></li>
 						<li><a href="#"><i class="icon-coins"></i> My balance</a></li>
 						<li><a href="#"><span class="badge bg-teal-400 pull-right">58</span> <i class="icon-comment-discussion"></i> Messages</a></li>
 						<li class="divider"></li>
@@ -309,7 +309,7 @@
 
 		<div class="navbar-collapse collapse" id="footer">
 			<div class="navbar-text">
-				&copy; 2015. <a href="#" class="navbar-link">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" class="navbar-link" target="_blank">Eugene Kopyov</a>
+				&copy; 2015. <a href="#" class="navbar-link">{{config('app.name')}}</a> by <a href="" class="navbar-link" target="_blank">{{config('app.name')}}</a>
 			</div>
 
 			<div class="navbar-right">

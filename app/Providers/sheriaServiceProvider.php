@@ -1,5 +1,9 @@
 <?php
-
+/*
+* This service provider will be used for auto generating data used in the whole application
+* Its registered in the Config\app.php provider array
+* Output: model data
+*/
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;

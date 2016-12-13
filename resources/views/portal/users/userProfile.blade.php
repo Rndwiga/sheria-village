@@ -8,16 +8,18 @@
 
 	<!-- Cover area -->
 	<div class="profile-cover">
-		<div class="profile-cover-img" style="background-image: url(assets/images/cover.jpg)"></div>
+		<div class="profile-cover-img" style="background-image: url({{asset('assets/images/cover.jpg')}})"></div>
 		<div class="media">
 			<div class="media-left">
 				<a href="#" class="profile-thumb">
-					<img src="assets/images/placeholder.jpg" class="img-circle" alt="">
+					<img src="{{asset('assets/images/placeholder.jpg')}}" class="img-circle" alt="">
 				</a>
 			</div>
 
 			<div class="media-body">
-					<h1>Hanna Dorman <small class="display-block">UX/UI designer</small></h1>
+					<h1>{{ Auth::user()->first_name . ' '. Auth::user()->last_name }}
+							<small class="display-block">UX/UI designer</small>
+					</h1>
 			</div>
 
 			<div class="media-right media-middle">
@@ -81,7 +83,7 @@
 								<!-- Sales stats -->
 								<div class="timeline-row">
 									<div class="timeline-icon">
-										<a href="#"><img src="assets/images/placeholder.jpg" alt=""></a>
+										<a href="#"><img src="{{asset('assets/images/placeholder.jpg')}}" alt=""></a>
 									</div>
 
 									<div class="panel panel-flat timeline-content">

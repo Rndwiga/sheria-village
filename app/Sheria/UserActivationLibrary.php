@@ -1,5 +1,9 @@
 <?php
-
+/*
+* This library contain, registration and activation functions.
+* The main purpose is to generate activation token, send activation email, and activate the user
+* Output: boolean
+*/
 namespace App\Sheria;
 
 use Illuminate\Support\Facades\Auth;

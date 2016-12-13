@@ -7,8 +7,7 @@
   <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
     {{ csrf_field() }}
     <div class="panel panel-body login-form">
-          @include('admin.partial.flash')
-          {{ $user}}
+          @include('portal.partials.flash')
       <div class="text-center">
         <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div>
         <h5 class="content-group">Login to your account <small class="display-block">Enter your credentials below</small></h5>
